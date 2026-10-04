@@ -3,13 +3,13 @@ import type { Platform, RoadmapFormData } from '../types';
 function platformGuidance(platform: Platform): string {
   switch (platform) {
     case 'Claude':
-      return 'Use a thoughtful, structured Markdown response. Surface assumptions and trade-offs clearly, then end each phase with a short checkpoint.';
+      return 'Optimize for Claude: use thoughtful Markdown, explicit assumptions, nuanced trade-offs, and a short checkpoint at the end of each phase.';
     case 'ChatGPT':
-      return 'Use clear headings, tables where they improve scanning, and practical examples. Keep the plan interactive by asking one useful follow-up only if a critical detail is missing.';
+      return 'Optimize for ChatGPT: use clear headings, practical examples, compact tables, and actionable checklists. Ask at most 3 questions only when a critical detail is missing.';
     case 'Gemini':
-      return 'Use concise sections, comparison-friendly tables, and current resource verification when browsing is available. Keep recommendations grounded in the learner profile.';
+      return 'Optimize for Gemini: use concise comparison-friendly sections, current resource verification when browsing is available, and recommendations grounded in the learner profile.';
     default:
-      return 'Use clean Markdown that works across major AI assistants. Do not assume any platform-specific tool or feature, and make the response easy to copy into notes.';
+      return 'Use clean portable Markdown that works across major AI assistants. Do not assume platform-specific tools and make the response easy to export.';
   }
 }
 
@@ -17,19 +17,34 @@ function display(value: string): string {
   return value.trim() || 'Not provided';
 }
 
+function roadmapSections(skill: string): string[] {
+  const normalized = skill.toLowerCase();
+  if (/language|english|hindi|spanish|french|german|japanese/.test(normalized)) {
+    return ['Learning objective and fluency target', 'Current level and gap analysis', 'Pronunciation and vocabulary foundation', 'Grammar and comprehension sequence', 'Listening and speaking practice', 'Reading and writing practice', 'Weekly practice schedule', 'Immersion resources', 'Progress checks and fluency milestones', '30-day action plan', 'Next steps'];
+  }
+  if (/data|sql|excel|power bi|tableau|analytics|business intelligence/.test(normalized)) {
+    return ['Executive learning summary', 'Baseline and prerequisite audit', 'Data literacy and tool foundations', 'SQL and data preparation sequence', 'Analysis and visualization workflow', 'Portfolio projects with datasets', 'Weekly practice schedule', 'Recommended data resources', 'Assessment and quality checks', 'Portfolio and career preparation', '30-day action plan', 'Next steps'];
+  }
+  if (/design|figma|ux|ui/.test(normalized)) {
+    return ['Design goal and success criteria', 'Current skill assessment', 'Principles and tool foundations', 'Research and ideation workflow', 'Practice briefs and case studies', 'Portfolio project sequence', 'Weekly critique and practice schedule', 'Recommended design resources', 'Review rubric and milestones', 'Portfolio presentation strategy', '30-day action plan', 'Next steps'];
+  }
+  return ['Executive summary and timeline feasibility', 'Knowledge audit and prerequisite gaps', 'Core concepts and tooling sequence', 'Hands-on practice and weekly schedule', 'Progressive projects with acceptance criteria', 'Testing, debugging, and quality checks', 'Recommended resources with verified links', 'Portfolio and career preparation', 'Assessment milestones and progress checklist', 'Estimated completion timeline', '30-day action plan', 'Next steps'];
+}
+
 export function generatePrompt(data: RoadmapFormData, platform: Platform): string {
   const dailyCommitment = data.dailyTime === 'Custom' ? display(data.customDailyTime) : display(data.dailyTime);
   const deadline = data.deadline === 'Custom' ? display(data.customDeadline) : display(data.deadline);
   const formats = data.learningFormats.length ? data.learningFormats.join(', ') : 'No preference specified';
   const verificationDate = new Date().toISOString().slice(0, 10);
+  const sections = roadmapSections(data.skill);
 
   return `# Personalized Learning Roadmap + PDF Document Request
 
 ## Non-negotiable deliverable
 Do not give me only a chat explanation. Research, write, and return the completed learning roadmap as a downloadable PDF document (.pdf) when your environment supports real file creation. The PDF must contain the entire roadmap, clickable hyperlinks, readable tables, a clear title page, a short table of contents, page numbers, and clean formatting ready to save, print, or share. If you cannot create or attach a real PDF, say so clearly and provide complete, well-structured PDF-ready Markdown or HTML with all hyperlinks preserved. Never claim that a PDF was created when it was not.
 
-## Selected AI platform
-The learner plans to use **${platform}**. ${platformGuidance(platform)}
+## Output optimization
+${platformGuidance(platform)}
 
 ## AI role
 Act as an experienced learning path architect, technical mentor, resource researcher, and career guidance expert. Turn the learner profile below into a realistic, motivating, measurable, and resource-backed learning roadmap. Explain complex topics in beginner-friendly language without being vague or patronizing.
@@ -82,26 +97,8 @@ Use the provided profile as the source of truth. If one or more missing details 
 11. Add a final 30-day action plan and a checklist of the next five concrete actions.
 
 ## Required PDF document structure
-Use these sections in this order, omitting any section that is genuinely irrelevant and briefly explaining the omission:
-1. Title Page
-2. Table of Contents
-3. Student Profile Summary
-4. Current Skill Assessment
-5. Prerequisites
-6. Overall Learning Strategy
-7. Phase-wise Roadmap
-8. Weekly Learning Schedule
-9. Daily Task Breakdown
-10. Recommended Learning Resources (with verified clickable links)
-11. Practical Projects
-12. Progress Tracking Checklist
-13. Assessment Milestones
-14. Portfolio Building Strategy
-15. Career Preparation (if relevant)
-16. Estimated Completion Timeline
-17. 30-Day Action Plan
-18. Next Steps
-19. Source Verification Notes
+Use these relevant sections in this order. Add a title page, table of contents, and source verification notes when producing a PDF. Do not force unrelated sections or repeat content:
+${sections.map((section, index) => `${index + 1}. ${section}`).join('\n')}
 
 Before creating the PDF file or PDF-ready content, run a final quality check: the schedule must fit the learner's stated time, every recommendation must connect to the goal, every resource URL must be labeled with its actual verification status, free legal book/resource options must be included where available, irrelevant sections must be omitted, duplicated advice must be removed, and the tone must stay beginner-friendly, practical, and honest about trade-offs.`;
 }

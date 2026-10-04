@@ -40,6 +40,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   .button-link { @apply text-sm font-bold text-cobalt underline decoration-2 underline-offset-4 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt; }
   .github-star-link { @apply inline-flex min-h-[40px] items-center gap-2 rounded border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-ink transition hover:-translate-y-px hover:border-ink hover:bg-sandline hover:shadow-[2px_2px_0_0_#111827] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2; }
   .github-star-count { @apply inline-flex items-center gap-1 border-l border-slate-300 pl-2 font-mono text-[10px] font-bold; }
+  .skill-suggestion { @apply rounded border border-ink bg-white px-2.5 py-1.5 text-left text-xs font-medium text-ink transition hover:bg-sandline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink; }
+  .skill-suggestion-selected { @apply bg-sandline font-bold shadow-[2px_2px_0_0_#111827]; }
   .prompt-shell { @apply overflow-hidden rounded-lg border-2 border-ink bg-[#0f172a] shadow-[4px_4px_0_0_#111827]; }
   .prompt-output { @apply m-0 max-h-[58vh] overflow-auto whitespace-pre-wrap break-words p-5 font-mono text-[13px] leading-6 text-emerald-300 sm:p-7 sm:text-sm; }
   .prompt-editor { @apply min-h-[58vh] w-full resize-y border border-slate-700 bg-transparent p-5 font-mono text-[13px] leading-6 text-emerald-200 outline-none ring-0 sm:p-7 sm:text-sm; }

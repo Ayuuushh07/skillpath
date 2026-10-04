@@ -13,11 +13,21 @@ interface StepPanelProps {
 
 export function StepPanel({ step, form, platform, errors, update, onPlatformChange }: StepPanelProps) {
   if (step === 1) {
+    const query = form.skill.trim().toLowerCase();
+    const matchingSkills = skillSuggestions.filter((skill) => !query || skill.toLowerCase().includes(query)).slice(0, 12);
+
     return (
       <section className="space-y-7" aria-labelledby="step-title">
         <div className="grid gap-6 md:grid-cols-[1.35fr_0.65fr]">
-          <TextField id="skill" label="What skill do you want to learn?" value={form.skill} onChange={(value) => update('skill', value)} placeholder="e.g. Full-stack web development" list="skill-suggestions" error={errors.skill} />
-          <datalist id="skill-suggestions">{skillSuggestions.map((skill) => <option key={skill} value={skill} />)}</datalist>
+          <div>
+            <TextField id="skill" label="What skill do you want to learn?" value={form.skill} onChange={(value) => update('skill', value)} placeholder="e.g. Data Analysis, Python, or English" error={errors.skill} />
+            <div className="mt-3" aria-label="Skill suggestions">
+              <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-mutedink">Suggestions · tap to select</p>
+              <div className="flex flex-wrap gap-1.5">
+                {matchingSkills.map((skill) => <button key={skill} type="button" className={`skill-suggestion ${form.skill === skill ? 'skill-suggestion-selected' : ''}`} onClick={() => update('skill', skill)}>{skill}</button>)}
+              </div>
+            </div>
+          </div>
         </div>
         <ChoiceGrid legend="What is your primary goal?" options={goalOptions} value={form.primaryGoal} onChange={(value) => update('primaryGoal', value)} error={errors.primaryGoal} columns={3} />
         <TextField id="targetOutcome" label="Is there a specific target or outcome?" value={form.targetOutcome} onChange={(value) => update('targetOutcome', value)} placeholder="e.g. Ship a portfolio app and apply for frontend internships" optional multiline />
