@@ -3,18 +3,18 @@
 @tailwind utilities;
 
 :root {
-  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
   line-height: 24px;
   color: #111827;
-  background: #fffdf8;
+  background: #fbf9f4;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
 
 * { box-sizing: border-box; }
-html { min-width: 320px; background: #fffdf8; }
-body { margin: 0; min-width: 320px; min-height: 100vh; background: #fffdf8; }
+html { min-width: 320px; background: #fbf9f4; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: #fbf9f4; }
 button, input, textarea, select { font: inherit; }
 button:disabled { cursor: not-allowed; opacity: 0.65; }
 
@@ -24,25 +24,25 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 }
 
 @layer components {
-  .eyebrow { @apply font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-cobalt; }
+  .eyebrow { @apply font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-mutedink; }
   .meta-label { @apply font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500; }
-  .form-card { @apply rounded-sm border border-border bg-surface-raised p-5 shadow-hard sm:p-8; }
-  .field-control { @apply w-full rounded-sm border border-slate-300 bg-white px-3.5 py-3 text-sm font-medium text-ink outline-none transition placeholder:text-slate-400 hover:border-slate-500 focus:border-cobalt focus:ring-2 focus:ring-blue-100; }
+  .form-card { @apply rounded-lg border-2 border-ink bg-white p-5 shadow-[3px_3px_0_0_#111827] sm:p-8; }
+  .field-control { @apply w-full rounded border-2 border-ink bg-canvas px-3.5 py-3 text-sm font-medium text-ink outline-none transition placeholder:text-slate-500 hover:bg-white focus:border-ink focus:shadow-[3px_3px_0_0_#111827]; }
   .field-error { @apply border-red-500 focus:border-red-600 focus:ring-red-100; }
-  .choice-card { @apply flex min-h-[48px] cursor-pointer items-center rounded-sm border border-slate-300 bg-white px-3 py-3 transition hover:-translate-y-px hover:border-slate-500 hover:shadow-[2px_2px_0_0_#cbd5e1] focus-within:border-cobalt focus-within:ring-2 focus-within:ring-blue-100; }
-  .choice-selected { @apply border-ink bg-bluewash shadow-[2px_2px_0_0_#111827]; }
-  .platform-card { @apply cursor-pointer rounded-sm border border-slate-300 bg-white p-4 transition hover:-translate-y-px hover:border-slate-500 hover:shadow-[2px_2px_0_0_#cbd5e1] focus-within:border-cobalt focus-within:ring-2 focus-within:ring-blue-100; }
-  .platform-selected { @apply border-ink bg-bluewash shadow-[2px_2px_0_0_#111827]; }
-  .review-box { @apply grid gap-4 rounded-sm border-2 border-ink bg-sand p-5 sm:grid-cols-[0.8fr_1.2fr] sm:items-center; }
-  .button-primary { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-sm border-2 border-ink bg-ink px-4 py-2.5 text-sm font-black text-white shadow-[3px_3px_0_0_#ebdbb7] transition hover:-translate-x-px hover:-translate-y-px hover:shadow-[4px_4px_0_0_#ebdbb7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 active:translate-x-0 active:translate-y-0 active:shadow-none; }
-  .button-secondary { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-sm border-2 border-ink bg-paper px-4 py-2.5 text-sm font-black text-ink shadow-[2px_2px_0_0_#111827] transition hover:-translate-x-px hover:-translate-y-px hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-2; }
-  .button-quiet { @apply inline-flex min-h-[42px] items-center justify-center gap-2 rounded-sm border border-slate-300 bg-transparent px-3 py-2 text-sm font-bold text-slate-600 transition hover:border-ink hover:bg-white hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-2; }
+  .choice-card { @apply flex min-h-[48px] cursor-pointer items-center rounded border-2 border-ink bg-white px-3 py-3 transition hover:bg-sandline hover:shadow-[2px_2px_0_0_#111827] focus-within:bg-sandline focus-within:shadow-[2px_2px_0_0_#111827]; }
+  .choice-selected { @apply border-ink bg-sandline shadow-[3px_3px_0_0_#111827]; }
+  .platform-card { @apply cursor-pointer rounded border-2 border-ink bg-white p-4 transition hover:bg-sandline hover:shadow-[2px_2px_0_0_#111827] focus-within:bg-sandline; }
+  .platform-selected { @apply border-ink bg-sandline shadow-[3px_3px_0_0_#111827]; }
+  .review-box { @apply grid gap-4 rounded border-2 border-ink bg-sandline p-5 sm:grid-cols-[0.8fr_1.2fr] sm:items-center; }
+  .button-primary { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded border-2 border-ink bg-navy px-4 py-2.5 text-sm font-bold text-white shadow-[3px_3px_0_0_#111827] transition hover:bg-mist hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 active:translate-x-px active:translate-y-px active:shadow-none; }
+  .button-secondary { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded border-2 border-ink bg-white px-4 py-2.5 text-sm font-bold text-ink shadow-[2px_2px_0_0_#111827] transition hover:bg-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2; }
+  .button-quiet { @apply inline-flex min-h-[42px] items-center justify-center gap-2 rounded border-2 border-ink bg-white px-3 py-2 text-sm font-bold text-ink transition hover:bg-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2; }
   .button-link { @apply text-sm font-bold text-cobalt underline decoration-2 underline-offset-4 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt; }
-  .github-star-link { @apply inline-flex min-h-[40px] items-center gap-2 rounded-sm border border-slate-600 bg-surface-raised px-3 py-2 text-xs font-bold text-ink transition hover:-translate-y-px hover:border-white hover:shadow-[2px_2px_0_0_#ebdbb7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black; }
+  .github-star-link { @apply inline-flex min-h-[40px] items-center gap-2 rounded border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-ink transition hover:-translate-y-px hover:border-ink hover:bg-sandline hover:shadow-[2px_2px_0_0_#111827] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2; }
   .github-star-count { @apply inline-flex items-center gap-1 border-l border-slate-300 pl-2 font-mono text-[10px] font-bold; }
-  .prompt-shell { @apply overflow-hidden rounded-sm border-2 border-ink bg-white shadow-hard; }
-  .prompt-output { @apply m-0 max-h-[58vh] overflow-auto whitespace-pre-wrap break-words p-5 font-mono text-[13px] leading-6 text-slate-700 sm:p-7 sm:text-sm; }
-  .prompt-editor { @apply min-h-[58vh] w-full resize-y border-0 bg-white p-5 font-mono text-[13px] leading-6 text-slate-700 outline-none ring-0 sm:p-7 sm:text-sm; }
+  .prompt-shell { @apply overflow-hidden rounded-lg border-2 border-ink bg-[#0f172a] shadow-[4px_4px_0_0_#111827]; }
+  .prompt-output { @apply m-0 max-h-[58vh] overflow-auto whitespace-pre-wrap break-words p-5 font-mono text-[13px] leading-6 text-emerald-300 sm:p-7 sm:text-sm; }
+  .prompt-editor { @apply min-h-[58vh] w-full resize-y border border-slate-700 bg-transparent p-5 font-mono text-[13px] leading-6 text-emerald-200 outline-none ring-0 sm:p-7 sm:text-sm; }
   .toast { @apply fixed bottom-5 left-1/2 z-50 flex w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 items-center gap-2 rounded-sm border-2 border-ink bg-paper px-4 py-3 text-sm font-bold text-ink shadow-hard sm:left-auto sm:right-6 sm:w-auto sm:translate-x-0; }
 }
 

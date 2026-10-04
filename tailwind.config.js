@@ -4,7 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       colors: {
         surface: {
@@ -27,6 +29,11 @@ export default {
         sand: '#ebdbb7',
         bluewash: '#e8f0fe',
         cobalt: '#1d4ed8',
+        navy: '#141b2b',
+        canvas: '#fbf9f4',
+        mist: '#f5f3ee',
+        sandline: '#eedeba',
+        mutedink: '#45464c',
       },
       boxShadow: {
         hard: '3px 3px 0 0 #111827',

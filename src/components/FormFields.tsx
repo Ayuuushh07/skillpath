@@ -9,9 +9,9 @@ interface FieldLabelProps {
 
 export function FieldLabel({ htmlFor, children, optional = false }: FieldLabelProps) {
   return (
-    <label htmlFor={htmlFor} className="mb-2 flex items-center justify-between gap-3 text-sm font-bold text-ink">
+    <label htmlFor={htmlFor} className="mb-2 flex items-center justify-between gap-3 font-display text-sm font-semibold text-ink">
       <span>{children}</span>
-      {optional && <span className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Optional</span>}
+      {optional && <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-mutedink">Optional</span>}
     </label>
   );
 }
@@ -85,7 +85,7 @@ interface ChoiceGridProps {
 export function ChoiceGrid({ legend, options, value, onChange, error, columns = 2 }: ChoiceGridProps) {
   return (
     <fieldset>
-      <legend className="mb-2 text-sm font-bold text-ink">{legend}</legend>
+      <legend className="mb-2 font-display text-sm font-semibold text-ink">{legend}</legend>
       <div className={`grid gap-2 ${columns === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'}`}>
         {options.map((option) => {
           const selected = option === value;
@@ -96,7 +96,7 @@ export function ChoiceGrid({ legend, options, value, onChange, error, columns = 
                 <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${selected ? 'border-cobalt bg-cobalt text-white' : 'border-slate-400 bg-paper'}`}>
                   {selected && <Check size={10} strokeWidth={4} />}
                 </span>
-                <span className="text-sm font-semibold leading-5">{option}</span>
+                <span className="text-sm font-medium leading-5">{option}</span>
               </span>
             </label>
           );
@@ -119,7 +119,7 @@ export function MultiChoice({ legend, options, values, onChange, error }: MultiC
   const toggle = (option: string) => onChange(values.includes(option) ? values.filter((item) => item !== option) : [...values, option]);
   return (
     <fieldset>
-      <legend className="mb-2 flex items-center gap-2 text-sm font-bold text-ink">{legend} <span className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Choose all that apply</span></legend>
+      <legend className="mb-2 flex items-center gap-2 font-display text-sm font-semibold text-ink">{legend} <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-mutedink">Choose all that apply</span></legend>
       <div className="grid gap-2 sm:grid-cols-2">
         {options.map((option) => {
           const selected = values.includes(option);
@@ -130,7 +130,7 @@ export function MultiChoice({ legend, options, values, onChange, error }: MultiC
                 <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-xs border ${selected ? 'border-cobalt bg-cobalt text-white' : 'border-slate-400 bg-paper'}`}>
                   {selected && <Check size={11} strokeWidth={4} />}
                 </span>
-                <span className="text-sm font-semibold leading-5">{option}</span>
+                <span className="text-sm font-medium leading-5">{option}</span>
               </span>
             </label>
           );

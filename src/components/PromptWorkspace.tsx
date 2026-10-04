@@ -1,4 +1,4 @@
-import { ArrowLeft, Clipboard, ClipboardCheck, Edit3, RefreshCw, RotateCcw, Sparkles } from 'lucide-react';
+import { ArrowLeft, Clipboard, ClipboardCheck, Edit3, RefreshCw, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import type { Platform } from '../types';
 
@@ -39,16 +39,15 @@ export function PromptWorkspace({ prompt, platform, onBackToBrief, onRegenerate,
       <div className="flex flex-col justify-between gap-4 border-b border-slate-300 pb-5 sm:flex-row sm:items-end">
         <div>
           <p className="eyebrow">OUTPUT / READY TO COPY</p>
-          <h1 className="mt-2 max-w-2xl text-3xl font-black text-ink sm:text-4xl">Your roadmap prompt is built.</h1>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-slate-600">Paste this into <span className="font-bold text-ink">{platform}</span>. It now asks for a Word document and researched, clickable resources.</p>
+          <h1 className="mt-2 max-w-2xl font-display text-3xl font-bold text-ink sm:text-4xl">Your roadmap prompt is built.</h1>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-mutedink">Paste this into <span className="font-bold text-ink">{platform}</span>. It now asks for a PDF document and researched, clickable resources.</p>
         </div>
-        <div className="flex items-center gap-2 self-start rounded-sm border border-slate-300 bg-bluewash px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-cobalt sm:self-auto"><Sparkles size={14} /> Client-side build</div>
       </div>
 
       <div className="prompt-shell">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-surface-muted px-4 py-3">
-          <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-cobalt" /><span className="font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-ink">skillpath_prompt.md</span></div>
-          <span className="font-mono text-[10px] font-bold text-slate-500">{editablePrompt.length.toLocaleString()} chars</span>
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-ink bg-[#1e293b] px-4 py-3 text-slate-300">
+          <div className="flex items-center gap-2"><span className="h-3 w-3 rounded-full border border-black/40 bg-red-500" /><span className="h-3 w-3 rounded-full border border-black/40 bg-amber-500" /><span className="h-3 w-3 rounded-full border border-black/40 bg-emerald-500" /><span className="ml-2 font-mono text-[10px] font-medium uppercase tracking-[0.12em]">skillpath-compiled-directive.prompt</span></div>
+          <span className="font-mono text-[10px] font-semibold">{editablePrompt.length.toLocaleString()} chars</span>
         </div>
         {isEditing ? <textarea aria-label="Edit generated prompt" className="prompt-editor" value={editablePrompt} onChange={(event) => setEditablePrompt(event.target.value)} /> : <pre className="prompt-output">{editablePrompt}</pre>}
       </div>
