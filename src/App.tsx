@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Check, Info, LoaderCircle, Save, WandSparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Github, Info, LoaderCircle, Save, Star, WandSparkles } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { BrandMark } from './components/BrandMark';
 import { ProgressRail } from './components/ProgressRail';
@@ -15,6 +15,9 @@ const stepCopy: Record<StepNumber, { title: string; body: string }> = {
   4: { title: 'Choose how you learn best.', body: 'Set your resource boundaries and learning rhythm so recommendations feel made for you.' },
   5: { title: 'One last check before build.', body: 'Choose where you plan to use the prompt, then SkillPath will package your brief into a detailed instruction set.' },
 };
+
+const repositoryUrl = 'https://github.com/Ayuuushh07/skillpath';
+const repositoryApiUrl = 'https://api.github.com/repos/Ayuuushh07/skillpath';
 
 function validateStep(step: StepNumber, form: RoadmapFormData): Record<string, string> {
   const errors: Record<string, string> = {};
@@ -54,6 +57,35 @@ export default function App() {
   const [toast, setToast] = useState<string | null>(null);
   const [hasDraft, setHasDraft] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [starCount, setStarCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    let ignore = false;
+
+    const refreshStarCount = async () => {
+      try {
+        const response = await fetch(repositoryApiUrl, { headers: { Accept: 'application/vnd.github+json' } });
+        if (!response.ok) return;
+        const repository = await response.json() as { stargazers_count?: number };
+        if (!ignore && typeof repository.stargazers_count === 'number') setStarCount(repository.stargazers_count);
+      } catch {
+        // The link remains useful when the public GitHub API is unavailable.
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') refreshStarCount();
+    };
+
+    refreshStarCount();
+    const interval = window.setInterval(refreshStarCount, 60000);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      ignore = true;
+      window.clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   useEffect(() => {
     const saved = loadDraft();
@@ -156,8 +188,11 @@ export default function App() {
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-4 lg:px-10">
           <BrandMark />
           <div className="flex items-center gap-3">
-            <span className="hidden font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400 sm:inline">v1.0 / client-side only</span>
-            <span className="flex items-center gap-2 rounded-sm border border-slate-300 bg-bluewash px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-cobalt"><span className="h-1.5 w-1.5 rounded-full bg-cobalt" /> No API keys</span>
+            <a className="github-star-link" href={repositoryUrl} target="_blank" rel="noreferrer" aria-label="Open SkillPath on GitHub and give it a star">
+              <Github size={15} aria-hidden="true" />
+              <span>Give a star on GitHub</span>
+              <span className="github-star-count" aria-label={`${starCount ?? 'Loading'} GitHub stars`}><Star size={13} fill="currentColor" aria-hidden="true" /> {starCount ?? '—'}</span>
+            </a>
           </div>
         </div>
       </header>
